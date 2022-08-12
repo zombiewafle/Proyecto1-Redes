@@ -1,5 +1,6 @@
 from argparse import ArgumentParser
 import asyncio
+from email import message
 import logging
 from getpass import getpass
 from slixmpp import ClientXMPP
@@ -7,30 +8,33 @@ from slixmpp import ClientXMPP
 
 class MessageBot(ClientXMPP):
 
-    def __init__(self, jid, password, recipient, msg):
+    def __init__(self, jid, password, room, nickname):
         super().__init__(jid, password)
 
         self.add_event_handler("session_start", self.session_start)
+        self.add_event_handler("group_message", self.group_message)
         #self.add_event_handler("message", self.message)
         #self.add_event_handler("register", self.registration)
 
-        #self.recipient = recipient
-        #self.msg = msg
-
-
+        self.room = room
+        self.nickname = nickname
 
     async def session_start(self, event):
         self.send_presence()
         await self.get_roster()
 
-        self.send_message(mto=self.recipient, 
-                          mbody=self.msg, 
-                          mtype='chat')
+        self.plugin['xep_0045'].join_muc(self.room, self.nickname)
 
+
+        def group_message(self, message):
+            if message['mucnick'] != self.nickname and self.nickname in message['body']:
+                self.send_message(mto=message['from'].bare, mbody=message, mtype='groupchat')
         #def message(self, msg):
         #    if msg['type'] in ('chat', 'normal'):
         #        self.send_message(mto=msg['from'], 
         #        mbody='Thanks for sending a message')
+        
+        
         self.disconnect()
 
 
@@ -74,17 +78,9 @@ if __name__ == '__main__':
     if args.password is None:
         args.password = getpass("Password: ")
 
-    MenuOptions= 0
-    print("Welcome to the XMPP implementation.... ")
-    while True:
-        print("Please choose one of the options in the menu...")
-        print("1. Private Messages")
-        print("2. Group Messages")
-        print("3. Send Presence")
-        print("9. Exit")
     #if args.to is None:
     #    args.to = input("Send to: ")
-    #
+    
     #if args.message is None:
     #    args.message = input("Message: ")
 
