@@ -16,3 +16,25 @@ El programa tiene funciones como:
   funciones propias de Smack 4.
   
   
+Las dependencias utilizadas son: 
+  Smack 3.0:
+     - AccountManager
+     - Chat
+     - ChatManager
+     - ConnectionConfiguration
+     - MessageListener
+     - XMPPConnection
+     - Message
+     
+   Smack 4.4:
+     - AbstractXMPPConnection
+     - ConnectionConfiguration
+     - Chat
+     - ChatManager
+     - IncomingChatMessageListener
+     - Message
+     - XMPPTCPConnection
+     - File
+     - EntityBareJid
+     - Jid
+     - JidCreate
