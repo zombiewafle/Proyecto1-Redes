@@ -15,6 +15,9 @@ El programa tiene funciones como:
   Para poder compilar el código se debe tener instalado JDK 17. Además de que se configuraron los archivos de Maven, para que se reconocieran las 
   funciones propias de Smack 4.
   
+  Durante el proyecto aprendí de como funciona realmente un chat. Carácteristicas como lo que implica agregar a alguien más como usuario, ya que en XMPP
+  que está más orientado a la seguridad pide permisos para agregar a alguien más, en comparación con alternativas como Whatsapp que no permite aceptar 
+  o denegar la solicitud
   
 Las dependencias utilizadas son: 
   Smack 3.0:
